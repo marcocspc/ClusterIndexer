@@ -1,0 +1,21 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="clusterindexer" version="4">
+  <OBJECT>
+    <ID name="clusterindexer" mc="Standard.Package" uid="4c10eaca-7e90-4136-b0ab-e601327749cb"/>
+    <PID name="ClusterIndexer" mc="Standard.Project" uid="6c825161-3c5c-43d7-bbc2-fd8401b4f551"/>
+    <ATTRIBUTES>
+      <ATT name="IsInstantiable">false</ATT>
+      <ATT name="IsAbstract">false</ATT>
+      <ATT name="IsLeaf">false</ATT>
+      <ATT name="IsRoot">false</ATT>
+      <ATT name="Visibility">Public</ATT>
+      <ATT name="Name"><![CDATA[clusterindexer]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="OwnedBehavior">
+        <COMPID name="Interaction" mc="Standard.Interaction" uid="bb7feb1e-100c-4b48-9b5a-c798111eaabe"/>
+      </COMP>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>

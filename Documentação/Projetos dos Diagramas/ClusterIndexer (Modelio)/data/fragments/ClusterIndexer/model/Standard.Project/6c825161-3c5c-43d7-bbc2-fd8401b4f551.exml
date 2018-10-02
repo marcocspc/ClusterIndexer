@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<!--GENERATED FILE, PLEASE DO NOT EDIT!!!--><EXT object="ClusterIndexer" version="4">
+  <OBJECT>
+    <ID name="ClusterIndexer" mc="Standard.Project" uid="6c825161-3c5c-43d7-bbc2-fd8401b4f551"/>
+    <ATTRIBUTES>
+      <ATT name="ProjectContext"></ATT>
+      <ATT name="ProjectDescr"></ATT>
+      <ATT name="Name"><![CDATA[ClusterIndexer]]></ATT>
+      <ATT name="status">1970354901745664</ATT>
+    </ATTRIBUTES>
+    <DEPENDENCIES>
+      <COMP relation="Model">
+        <COMPID name="clusterindexer" mc="Standard.Package" uid="4c10eaca-7e90-4136-b0ab-e601327749cb"/>
+      </COMP>
+      <COMP relation="DiagramRoot">
+        <COMPID name="ClusterIndexer" mc="Infrastructure.DiagramSet" uid="7332e2fd-a38a-4294-b0dd-52726b8aaf30"/>
+      </COMP>
+    </DEPENDENCIES>
+  </OBJECT>
+</EXT>

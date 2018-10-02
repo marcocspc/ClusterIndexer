@@ -1,0 +1,39 @@
+----------------- Requisitos Funcionais ---------------
+
+1 - Este é um módulo python capaz de calcular o índice de Davies-Bouldin e os
+índices Silhouette dado um conjunto de dados clusterizado;
+2 - O módulo deverá ser utilizado através da linha de comando,
+segue alguns exemplos:
+
+  - moduloPython.py --method db --database arquivo.csv
+  - moduloPython.py --method silhouette --database arquivo.csv
+  - python3 -m moduloPython --method db --database arquivo.csv
+  - python3 -m moduloPython --method silhouette --database arquivo.csv
+
+3 - Só serão aceitos documentos do tipo CSV que possuam uma coluna "Cluster",
+com o cluster de cada linha indicado, conforme o exemplo:
+
+Nome,Idade,Cluster
+Marco,10,cluster0
+José,70,cluster1
+Maria,11,cluster0
+
+4 - O usuário deverá indicar, através de parâmetro de linha de comando, qual
+dos índices deseja utilizar na base de dados passada;
+5 - Para o índice Davies-Bouldin deverá ser impresso na tela um número que é o
+resultado final dos cálculos;
+6 - Para o índice Silhouette, deverá ser impressa na tela uma matriz de índices;
+7 - O módulo deverá fazer a transformação de dados conforme o necessário:
+
+  - Para atributos categóricos, deverão ser criadas várias colunas para cada
+  tipo de categoria e atribuído o valor 1 apenas ao tipo de dado
+  da categoria da linha, as outras colunas serão zeradas;
+  - Para atributos numéricos, deverá ser feita a normalização entre 0 e 1;
+
+8 - A fórmula de normalização é a que segue:
+
+  dadoNormalizado = (dado - valorMax) / (valorMax - valorMin)
+  Sendo: dadoNormalizado = valor obtido ao final da operação;
+  dado: número a ser normalizado;
+  valorMax: o maior dos valores não normalizados;
+  valorMin: o menor dos valores não normalizados.
