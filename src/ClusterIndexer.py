@@ -1,6 +1,7 @@
 import sys
 from Tools.Dataset import Dataset
 from Tools.DataNormalizer import DataNormalizer
+from Tools.IndexerStrategy import IndexerStrategy
 
 #método principal
 def main():
@@ -26,8 +27,9 @@ def main():
     try:
         if normalizer.validate(dataset):
             dataset = normalizer.normalize(dataset)
+            indexer = IndexerStrategy()
+            indexer.chooseStrategy(dataset, method)
 
-            
     except Exception as e:
         raise e
 

@@ -5,7 +5,7 @@
 2 - O módulo deverá ser utilizado através da linha de comando,
 segue alguns exemplos:
 
-  - moduloPython.py --method db --database arquivo.csv
+  - moduloPython.py --method davesbouldin --database arquivo.csv
   - moduloPython.py --method silhouette --database arquivo.csv
   - python3 -m moduloPython --method db --database arquivo.csv
   - python3 -m moduloPython --method silhouette --database arquivo.csv
