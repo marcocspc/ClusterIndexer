@@ -1,6 +1,9 @@
+import os
+
 class Dataset:
     def __init__(self, csvfile):
         #atributos
+        self.filename = os.path.basename(csvfile)
         self.columnsLabels = []
         self.data = []
 
@@ -39,10 +42,15 @@ class Dataset:
         text += ('\n'.join([','.join([str(cell) for cell in row]) for row in self.data]))
         return text
 
-    def toDict(self):
+    def toClusteredDict(self):
         dict = {}
-        for key in self.columnsLabels:
-            dict[key] = [] if key not in dict else None
-            for line in self.data:
-                dict[key].append(line[self.columnsLabels.index(key)])
+
+        for line in self.data:
+            cluster = line.pop(self.columnsLabels.index('Cluster'))
+            if cluster not in dict.keys():
+                dict[cluster] = []
+                dict[cluster].append(line)
+            else:
+                dict[cluster].append(line)
+
         return dict

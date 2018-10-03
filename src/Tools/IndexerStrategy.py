@@ -8,7 +8,9 @@ class IndexerStrategy:
         dbs = DaviesBouldinStrategy()
         sils = SilhouetteStrategy()
 
-        if method == 'davesbouldin':
+        if method == 'daviesbouldin':
             dbs.executeStrategy(normalizedDataSet)
         elif method == 'silhouette':
             sils.executeStrategy(normalizedDataSet)
+        else:
+            raise Exception("Method not recognized: " + method)
