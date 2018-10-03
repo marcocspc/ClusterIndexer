@@ -38,3 +38,11 @@ class Dataset:
         text += '\n'
         text += ('\n'.join([','.join([str(cell) for cell in row]) for row in self.data]))
         return text
+
+    def toDict(self):
+        dict = {}
+        for key in self.columnsLabels:
+            dict[key] = [] if key not in dict else None
+            for line in self.data:
+                dict[key].append(line[self.columnsLabels.index(key)])
+        return dict
