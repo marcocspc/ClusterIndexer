@@ -23,7 +23,8 @@ Maria,11,cluster0
 dos índices deseja utilizar na base de dados passada;
 5 - Para o índice Davies-Bouldin deverá ser impresso na tela um número que é o
 resultado final dos cálculos;
-6 - Para o índice Silhouette, deverá ser impressa na tela uma matriz de índices;
+6 - Para o índice Silhouette, deverá ser impressa na tela um número que é o
+resultado final dos cálculos;
 7 - O módulo deverá fazer a transformação de dados conforme o necessário:
 
   - Para atributos categóricos, deverão ser criadas várias colunas para cada
