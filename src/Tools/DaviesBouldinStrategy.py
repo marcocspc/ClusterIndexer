@@ -1,10 +1,37 @@
 import math
 
 class DaviesBouldinStrategy:
+    
     def executeStrategy(self, normalizedDataSet):
+        """Executa classificação
+
+        Args:
+            normalizedDataSet: Objeto da classe DataNormalizer.
+
+        Returns:
+            string: Indices calculados.
+        """
+
         self.printResult(self.calculateIndex(normalizedDataSet), normalizedDataSet)
 
     def calculateIndex(self, normalizedDataSet):
+        """Cálcula indices
+
+        Args:
+            normalizedDataSet: Objeto da classe DataNormalizer.
+
+        Returns:
+            number: Média da lista MRS.
+        
+        Workflow:
+            1 - Separa clusters;
+            2 - Cálcula centroids;
+            3 - Encontra ES;
+            4 - Cálcula distancia euclidiana;
+            5 - Encontra RS;
+            6 - Encontra MRS;
+        """
+
         clusters = normalizedDataSet.toClusteredDict()
         centroids = self.getCentroids(clusters)
         es = self.es(clusters, centroids)
@@ -14,10 +41,30 @@ class DaviesBouldinStrategy:
         return self.db_index(mrs)
 
     def printResult(self, index, normalizedDataSet):
+        """Mensagem de retorno para o usuário
+
+        Args:
+            index: Indice calculado com base no DataNormalizer.
+            normalizedDataSet: Objeto da classe DataNormalizer.
+        """
+
         print("O índice Davies-Bouldin para o Conjunto de Dados " +
         normalizedDataSet.filename + " foi: " + str(index))
 
     def getCentroids(self, pclusters):
+        """Cálculo de centroids do cluster
+
+        Args:
+            pclusters: Clusters para cálculo dos centroids.
+
+        Returns:
+            dict: Médias calculadas.
+        
+        Workflow:
+            1 - Varre o cluster;
+            2 - Cálcula médianas;
+        """
+
         clusters = pclusters
         centroids = {}
         for cluster in clusters.keys():
@@ -30,6 +77,16 @@ class DaviesBouldinStrategy:
         return centroids
 
     def es(self, pclusters, centroids):
+        """Encontra ES's do cluster
+
+        Args:
+            pclusters: Clusters para cálculo.
+            centroids: Centroids já previamente calculados.
+
+        Returns:
+            dict: Médias calculadas.
+        """
+
         clusters = pclusters
         es = {}
 
@@ -46,6 +103,15 @@ class DaviesBouldinStrategy:
         return es
 
     def distEntreCentroids(self, centroids):
+        """Cálculo da distancia entre centroids
+
+        Args:
+            centroids: Centroids já previamente calculados.
+
+        Returns:
+            dict: Distâncias euclidianas calculadas.
+        """
+
         dist = {}
         ckeys = list(centroids.keys())
 
@@ -61,6 +127,16 @@ class DaviesBouldinStrategy:
         return dist
 
     def rs(self, es, distEntCen):
+        """Encontra RS's
+
+        Args:
+            es: ES's já previamente calculados.
+            distEntCen: Distâncias já previamente calculados.
+
+        Returns:
+            dict: RS's.
+        """
+
         rss = {}
         esvalues = list(es.values())
 
@@ -73,6 +149,15 @@ class DaviesBouldinStrategy:
         return rss
 
     def mrs(self, rs):
+        """Encontra MRS's
+
+        Args:
+            rs: RS's já previamente calculados.
+
+        Returns:
+            array: Valores máximos calculados.
+        """
+
         mrs = []
         rsvalues = list(rs.values())
 
@@ -83,4 +168,13 @@ class DaviesBouldinStrategy:
         return mrs
 
     def db_index(self, mrs):
+        """Encontra média de um MRS
+
+        Args:
+            mrs: MRS já previamente calculados.
+
+        Returns:
+            number: Cálculo de média.
+        """
+
         return sum(mrs)/len(mrs)
