@@ -10,6 +10,7 @@ segue alguns exemplos:
   - python3 -m moduloPython --method db --database arquivo.csv
   - python3 -m moduloPython --method silhouette --database arquivo.csv
   - python3 -m moduloPython --method davesbouldin --database arquivo.csv --compare-to arquivo2.csv
+  - python3 -m moduloPython --normalize --database arquivo.csv --output arquivo2.csv
 
 3 - Só serão aceitos documentos do tipo CSV que possuam uma coluna "Cluster",
 com o cluster de cada linha indicado, conforme o exemplo:
@@ -40,4 +41,7 @@ resultado final dos cálculos;
   valorMax: o maior dos valores não normalizados;
   valorMin: o menor dos valores não normalizados;
 9 - O usuário poderá comparar alguns índices passando mais arquivos através do
-parâmetro '--compare-to'.
+parâmetro '--compare-to';
+10 - O usuário poderá gerar um CSV normalizado para um dado CSV de entrada
+através do parâmetro '--normalize', e passando o nome do arquivo CSV de saída
+com o parâmetro '--output'.
