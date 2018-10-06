@@ -29,15 +29,15 @@ class DataNormalizer:
 
                     for line in dataset.data:
                         if (line[i] not in values and
-                        columnLabel + '_' + line[i] not in values):
-                            values.append(columnLabel + '_' + line[i])
+                        columnLabel + '_' + line[i] + '_cat' not in values):
+                            values.append(columnLabel + '_' + line[i] + '_cat')
 
                     dataset.columnsLabels[i+1:i+1] = values.copy()
                     dataset.columnsLabels.pop(i)
 
                     for line in dataset.data:
                         auxlist = [0.0] * len(values)
-                        auxlist[values.index(columnLabel + '_' + line[i])] = 1.0
+                        auxlist[values.index(columnLabel + '_' + line[i] + '_cat')] = 1.0
                         line[i+1:i+1] = auxlist
                         line.pop(i)
 

@@ -1,7 +1,7 @@
 import math
 
 class DaviesBouldinStrategy:
-    
+
     def executeStrategy(self, normalizedDataSet):
         """Executa classificação
 
@@ -22,7 +22,7 @@ class DaviesBouldinStrategy:
 
         Returns:
             number: Média da lista MRS.
-        
+
         Workflow:
             1 - Separa clusters;
             2 - Cálcula centroids;
@@ -33,7 +33,7 @@ class DaviesBouldinStrategy:
         """
 
         clusters = normalizedDataSet.toClusteredDict()
-        centroids = self.getCentroids(clusters)
+        centroids = self.getCentroids(clusters, normalizedDataSet)
         es = self.es(clusters, centroids)
         dist = self.distEntreCentroids(centroids)
         rs = self.rs(es, dist)
@@ -45,21 +45,22 @@ class DaviesBouldinStrategy:
 
         Args:
             index: Indice calculado com base no DataNormalizer.
-            normalizedDataSet: Objeto da classe DataNormalizer.
+            normalizedDataSet: Objeto da classe DataSet normalizado.
         """
 
         print("O índice Davies-Bouldin para o Conjunto de Dados " +
         normalizedDataSet.filename + " foi: " + str(index))
 
-    def getCentroids(self, pclusters):
+    def getCentroids(self, pclusters, normalizedDataSet):
         """Cálculo de centroids do cluster
 
         Args:
             pclusters: Clusters para cálculo dos centroids.
+            normalizedDataSet: Dataset normalizado.
 
         Returns:
             dict: Médias calculadas.
-        
+
         Workflow:
             1 - Varre o cluster;
             2 - Cálcula médianas;
@@ -67,13 +68,40 @@ class DaviesBouldinStrategy:
 
         clusters = pclusters
         centroids = {}
+        columnsLabels = normalizedDataSet.columnsLabels
         for cluster in clusters.keys():
             centroids[cluster] = []
-            for i in range(len(clusters[cluster][0]) - 1):
-                mediaCol = 0
-                for instance in clusters[cluster]:
-                    mediaCol += float(instance[i])
-                centroids[cluster].append(mediaCol/len(clusters[cluster]))
+            i = 0
+            while i < len(clusters[cluster][0]) - 1:
+                if 'cat' in columnsLabels[i]:
+                    catName = columnsLabels[i][0:columnsLabels[i].find('_')]
+                    aux = i
+                    j = 0
+                    while (catName in columnsLabels[aux]):
+                        j+=1
+                        aux+=1
+                    indColMod = 0
+                    maior = 0
+                    for k in range(j):
+                        cont = 0
+                        for instance in clusters[cluster]:
+                            if instance[i + k] == 1:
+                                cont+=1
+                        if cont > maior:
+                            indColMod = k
+                            maior = cont
+                    for k in range(j):
+                        if k == indColMod:
+                            centroids[cluster].append(1.0)
+                        else:
+                            centroids[cluster].append(0.0)
+                    i+=j
+                else:
+                    mediaCol = 0
+                    for instance in clusters[cluster]:
+                        mediaCol += float(instance[i])
+                    centroids[cluster].append(mediaCol/len(clusters[cluster]))
+                    i+=1
         return centroids
 
     def es(self, pclusters, centroids):
