@@ -34,8 +34,8 @@ class DaviesBouldinStrategy:
 
         clusters = normalizedDataSet.toClusteredDict()
         centroids = self.getCentroids(clusters, normalizedDataSet)
-        es = self.es(clusters, centroids)
-        dist = self.distEntreCentroids(centroids)
+        es = self.es(clusters, centroids, normalizedDataSet)
+        dist = self.distEntreCentroids(centroids, normalizedDataSet)
         rs = self.rs(es, dist)
         mrs = self.mrs(rs)
         return self.db_index(mrs)
@@ -104,12 +104,13 @@ class DaviesBouldinStrategy:
                     i+=1
         return centroids
 
-    def es(self, pclusters, centroids):
+    def es(self, pclusters, centroids, normalizedDataSet):
         """Encontra ES's do cluster
 
         Args:
             pclusters: Clusters para cálculo.
             centroids: Centroids já previamente calculados.
+            normalizedDataSet: Dataset normalizado.
 
         Returns:
             dict: Médias calculadas.
@@ -117,20 +118,40 @@ class DaviesBouldinStrategy:
 
         clusters = pclusters
         es = {}
+        columnsLabels = normalizedDataSet.columnsLabels
+
 
         for cluster in clusters.keys():
             listaMedias = []
             for instance in clusters[cluster]:
                 mediaAtual = 0
-                for i in range(len(clusters[cluster][0]) - 1):
-                    mediaAtual += math.fabs(float(centroids[cluster][i]) - float(instance[i]))
-                mediaAutal = math.pow(mediaAtual,2)
+                i = 0
+                while i < len(clusters[cluster][0]):
+                    if 'cat' in columnsLabels[i]:
+                        catName = columnsLabels[i][0:columnsLabels[i].find('_')]
+                        aux = i
+                        j = 0
+                        while (catName in columnsLabels[aux]):
+                            j+=1
+                            aux+=1
+
+                        for k in range(j):
+                            if float(centroids[cluster][i + k]) == 1.0:
+                                if float(centroids[cluster][i + k]) != float(instance[i + k]):
+                                    mediaAtual += 1
+                                    k = j
+                                else:
+                                    k = j
+                        i += j
+                    else:
+                        mediaAtual += math.fabs(float(centroids[cluster][i]) - float(instance[i]))
+                        i += 1
+                mediaAtual = math.pow(mediaAtual,2)
                 listaMedias.append(mediaAtual)
             es[cluster] = sum(listaMedias)/len(listaMedias)
-
         return es
 
-    def distEntreCentroids(self, centroids):
+    def distEntreCentroids(self, centroids, normalizedDataSet):
         """Cálculo da distancia entre centroids
 
         Args:
@@ -142,14 +163,34 @@ class DaviesBouldinStrategy:
 
         dist = {}
         ckeys = list(centroids.keys())
+        columnsLabels = normalizedDataSet.columnsLabels
 
         for i in range(len(centroids) - 1):
-            for j in range(len(centroids)):
-                j = i + 1
+            for j in range(i + 1, len(centroids)):
                 label = "[" + str(i + 1) + ", " + str(j + 1) + "]"
                 soma = 0
-                for x in range(len(centroids[ckeys[i]])):
-                    soma += math.fabs(centroids[ckeys[i]][x] - centroids[ckeys[j]][x])
+
+                x = 0
+                while x < len(centroids[ckeys[i]]):
+                    if 'cat' in columnsLabels[x]:
+                        catName = columnsLabels[x][0:columnsLabels[x].find('_')]
+                        aux = x
+                        y = 0
+                        while (catName in columnsLabels[aux]):
+                            y+=1
+                            aux+=1
+
+                        for k in range(y):
+                            if centroids[ckeys[i]][x + k] == 1.0:
+                                if centroids[ckeys[i]][x + k] != centroids[ckeys[j]][x + k]:
+                                    soma += 1
+                                    k = y
+                                else:
+                                    k = y
+                        x += y
+                    else:
+                        soma += math.fabs(centroids[ckeys[i]][x] - centroids[ckeys[j]][x])
+                        x+=1
                 dist[label] = soma
 
         return dist
@@ -169,8 +210,7 @@ class DaviesBouldinStrategy:
         esvalues = list(es.values())
 
         for i in range(len(es) - 1):
-            for j in range(len(es)):
-                j = i + 1
+            for j in range(i + 1, len(es)):
                 label = "[" + str(i + 1) + ", " + str(j + 1) + "]"
                 rss[label] = (float(esvalues[i]) + float(esvalues[j])) / float(distEntCen[label])
 
@@ -190,7 +230,7 @@ class DaviesBouldinStrategy:
         rsvalues = list(rs.values())
 
         for i in range(len(rs) - 1):
-            for j in range(len(rs)):
+            for j in range(i + 1, len(rs)):
                 mrs.append(max(rsvalues[i], rsvalues[j]))
 
         return mrs
