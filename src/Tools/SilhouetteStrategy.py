@@ -11,7 +11,6 @@ class SilhouetteStrategy:
             sis[cluster] = []
             for instance in clusters[cluster]:
                 sis[cluster].append(self.s(instance, cluster, clusters, normalizedDataSet.columnsLabels))
-
         scs = []
         for cluster in sis.keys():
             scs.append(sum(sis[cluster])/len(sis[cluster]))

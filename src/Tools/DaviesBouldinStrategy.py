@@ -72,7 +72,7 @@ class DaviesBouldinStrategy:
         for cluster in clusters.keys():
             centroids[cluster] = []
             i = 0
-            while i < len(clusters[cluster][0]) - 1:
+            while i < len(clusters[cluster][0]):
                 if 'cat' in columnsLabels[i]:
                     catName = columnsLabels[i][0:columnsLabels[i].find('_')]
                     aux = i
