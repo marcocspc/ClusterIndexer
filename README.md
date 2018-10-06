@@ -1,7 +1,7 @@
 # ClusterIndexer
 Davies-Bouldin &amp; Silhouette Indexes calculator
 
-#How to use
+# How to use
 
 - If you need to test some file.csv using Davies-Bouldin index:
 `python3 ClusterIndexer.py --method daviesbouldin --database file.csv`
