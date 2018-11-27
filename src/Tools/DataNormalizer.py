@@ -2,7 +2,7 @@ class DataNormalizer:
     def validate(self, dataset):
         result = False
 
-        if 'Cluster' in dataset.columnsLabels:
+        if 'Cluster' in dataset.columnsLabels or 'cluster' in dataset.columnsLabels:
             result = True
             for line in dataset.data:
                 if len(line) != len(dataset.columnsLabels):
@@ -63,7 +63,7 @@ class DataNormalizer:
         return dataset
 
     def comlumnType(self, dataset, columnNumber):
-        if not dataset.columnsLabels[columnNumber] == 'Cluster':
+        if not (dataset.columnsLabels[columnNumber] == 'Cluster' or dataset.columnsLabels[columnNumber] == 'cluster'):
             for line in dataset.data:
                 if not line[columnNumber].replace('.','',1).isdigit():
                     return 'string'

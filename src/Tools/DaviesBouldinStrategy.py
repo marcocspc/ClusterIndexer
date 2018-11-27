@@ -229,9 +229,12 @@ class DaviesBouldinStrategy:
         mrs = []
         rsvalues = list(rs.values())
 
-        for i in range(len(rs) - 1):
-            for j in range(i + 1, len(rs)):
-                mrs.append(max(rsvalues[i], rsvalues[j]))
+        if len(rs) > 1:
+            for i in range(len(rs) - 1):
+                for j in range(i + 1, len(rs)):
+                    mrs.append(max(rsvalues[i], rsvalues[j]))
+        else:
+            mrs.append(rsvalues[0])
 
         return mrs
 

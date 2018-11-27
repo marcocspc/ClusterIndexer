@@ -46,7 +46,12 @@ class Dataset:
         dict = {}
 
         for line in self.data:
-            cluster = line.pop(self.columnsLabels.index('Cluster'))
+
+            try:
+                cluster = line.pop(self.columnsLabels.index('Cluster'))
+            except ValueError:
+                cluster = line.pop(self.columnsLabels.index('cluster'))
+
             if cluster not in dict.keys():
                 dict[cluster] = []
                 dict[cluster].append(line)
