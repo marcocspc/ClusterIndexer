@@ -1,7 +1,7 @@
 import sys
-from Tools.Dataset import Dataset
-from Tools.DataNormalizer import DataNormalizer
-from Tools.IndexerStrategy import IndexerStrategy
+from tools.dataset import Dataset
+from tools.data_normalizer import DataNormalizer
+from tools.indexer_strategy import IndexerStrategy
 
 #método principal
 def main():

@@ -1,5 +1,8 @@
 # ClusterIndexer
-Davies-Bouldin &amp; Silhouette Indexes calculator
+
+This was a project I did in my Master's Degree to help me calculate the Davies-Bouldin &amp; Silhouette indexes on clusterized datasets.
+
+In addition to this, this script is capable of normalizing datasets in order to use clustering algorithms on it. Currently, unfortunately, it is not capable of applying these algorithms to the dataset, but it will be included in the roadmap.
 
 # How to use
 
@@ -11,3 +14,11 @@ Davies-Bouldin &amp; Silhouette Indexes calculator
 `python3 ClusterIndexer.py --method davesbouldin --database file.csv --compare-to file2.csv --compare-to file3.csv`
 - If you need to normalize a CSV file, use the following command line:
 `python3 ClusterIndexer.py --normalize --database file.csv --output file2.csv`
+
+#Roadmap
+
+- [] Show columns that are missing data;
+- [] Show Pearson correlation between columns;
+- Include support for the following clustering algorithms:
+  - [] kMeans;
+  - [] Hierarchical;

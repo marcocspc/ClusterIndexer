@@ -1,5 +1,5 @@
-from Tools.DaviesBouldinStrategy import DaviesBouldinStrategy
-from Tools.SilhouetteStrategy import SilhouetteStrategy
+from tools.davies_bouldin_strategy import DaviesBouldinStrategy
+from tools.silhouette_strategy import SilhouetteStrategy
 
 class IndexerStrategy:
     def chooseStrategy(self, normalizedDataSet, method):
