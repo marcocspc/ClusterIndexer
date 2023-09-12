@@ -80,6 +80,10 @@ def main():
     parser = Parser()
     args = parser.args
 
+    if args.command is None:
+        parser.parser.print_help()
+        exit(0)
+
     if args.command == "normalize":
         #here is where normalization is done
 
@@ -106,9 +110,10 @@ def main():
 
                 #save normalized
                 output.write(dataset.getCSVText())
-        except Error as e:
+        except Exception as e:
             logger.error(e)
             logger.debug(e, exc_info=1)
+            exit(1)
 
         exit(0)
 
@@ -135,12 +140,12 @@ def main():
                 indexer = IndexerStrategy()
                 indexer.chooseStrategy(dataset, method)
 
-            if method == 'daviesbouldin':
-                print("In Davies-Bouldin index the lesser the result value is, " +
-                "more well distributed are the instances in the clusters.")
-            elif method == 'silhouette':
-                print("In Silhouette index the closer to 1 the result value is, " +
-                "more well distributed are the instances in the clusters.")
+                if method == 'daviesbouldin':
+                    print("In Davies-Bouldin index the lesser the result value is, " +
+                    "more well distributed are the instances in the clusters.")
+                elif method == 'silhouette':
+                    print("In Silhouette index the closer to 1 the result value is, " +
+                    "more well distributed are the instances in the clusters.")
             except Exception as e:
                 logger.error(e)
                 logger.debug(e, exc_info=1)

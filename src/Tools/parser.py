@@ -21,7 +21,7 @@ class Parser():
                 "dest": ("-m", "--method"),
                 "help": "Method to use when calculating indexes.",
                 "action": "store",
-                "nargs": '1',
+                "nargs": 1,
                 "choices": {"daviesbouldin", "silhouette"},
                 }
 
